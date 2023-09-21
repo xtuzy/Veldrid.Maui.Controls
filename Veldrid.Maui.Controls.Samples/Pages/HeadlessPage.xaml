@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Veldrid.Maui.Controls.Samples.Pages.HeadlessPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="HeadlessPage">
+    <Grid RowDefinitions="Auto,*">
+        <ScrollView Grid.Row="0" Orientation="Horizontal">
+            <HorizontalStackLayout>
+                <Button
+                    x:Name="Texture"
+                    Clicked="Texture_Clicked"
+                    Text="Texture" />
+                <Button
+                    x:Name="Triangle"
+                    Clicked="Triangle_Clicked"
+                    Text="HelloTriangle" />
+            </HorizontalStackLayout>
+        </ScrollView>
+        <ScrollView
+            x:Name="scrollView"
+            Grid.Row="1"
+            Orientation="Both">
+            <Label Text="Headless: not use view or window in visual tree to create GraphicsDevice" />
+        </ScrollView>
+    </Grid>
+</ContentPage>

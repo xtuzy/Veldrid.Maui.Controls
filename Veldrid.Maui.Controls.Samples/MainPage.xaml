@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Veldrid.Maui.Controls.Samples.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid>
+        <Label
+            FontSize="24"
+            HorizontalOptions="Center"
+            LineBreakMode="WordWrap"
+            Text="Test if it runs on your device"
+            VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

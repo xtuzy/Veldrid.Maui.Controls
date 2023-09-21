@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Veldrid.Maui.Controls.Samples.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Veldrid.Maui.Controls.Samples"
+    xmlns:pages="clr-namespace:Veldrid.Maui.Controls.Samples.Pages"
+    Title="Veldrid.Maui.Controls.Samples"
+    Shell.FlyoutBehavior="Flyout">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    <ShellContent
+        Title="HeadlessPage"
+        ContentTemplate="{DataTemplate pages:HeadlessPage}"
+        Route="HeadlessPage" />
+    <ShellContent
+        Title="LearnOpenGLPage"
+        ContentTemplate="{DataTemplate pages:LearnOpenGLPage}"
+        Route="LearnOpenGLPage" />
+
+</Shell>

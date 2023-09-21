@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="Veldrid.Maui.Controls.Samples.BackendChooseControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <StackLayout
+        BackgroundColor="Gray"
+        HorizontalOptions="Center"
+        RadioButtonGroup.GroupName="backend">
+        <Label Text="Try choose GraphicsBackend" TextColor="White" />
+        <RadioButton
+            x:Name="D3D11"
+            CheckedChanged="Backend_CheckedChanged"
+            Content="D3D11"
+            TextColor="White" />
+        <RadioButton
+            x:Name="Vulkan"
+            CheckedChanged="Backend_CheckedChanged"
+            Content="Vulkan"
+            TextColor="White" />
+        <RadioButton
+            x:Name="OpenGLES"
+            CheckedChanged="Backend_CheckedChanged"
+            Content="OpenGLES"
+            TextColor="White" />
+        <RadioButton
+            x:Name="Metal"
+            CheckedChanged="Backend_CheckedChanged"
+            Content="Metal"
+            TextColor="White" />
+    </StackLayout>
+</ContentView>

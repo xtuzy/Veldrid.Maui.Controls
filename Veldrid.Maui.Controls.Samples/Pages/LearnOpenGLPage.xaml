@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Veldrid.Maui.Controls.Samples.Pages.LearnOpenGLPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Veldrid.Maui.Controls.Samples"
+    Title="LearnOpenGLPage">
+    <Grid RowDefinitions="Auto,*">
+        <ScrollView Grid.Row="0" Orientation="Horizontal">
+            <HorizontalStackLayout>
+                <Label
+                    x:Name="Backend"
+                    Margin="5,0,5,0"
+                    VerticalOptions="Center" />
+                <Button
+                    x:Name="HelloTriangle"
+                    Clicked="Button_Clicked"
+                    Text="HelloTriangle" />
+                <Button
+                    x:Name="Shaders_Uniform"
+                    Clicked="Button_Clicked"
+                    Text="Shaders_Uniform" />
+                <Button
+                    x:Name="Textures"
+                    Clicked="Button_Clicked"
+                    Text="Textures" />
+                <Button
+                    x:Name="Cube"
+                    Clicked="Button_Clicked"
+                    Text="Cube" />
+                <Button
+                    x:Name="MoreCube"
+                    Clicked="Button_Clicked"
+                    Text="MoreCube" />
+            </HorizontalStackLayout>
+        </ScrollView>
+        <Grid
+            x:Name="scrollView"
+            Grid.Row="1"
+            BackgroundColor="AliceBlue">
+            <controls:BackendChooseControl
+                x:Name="BackendChoose"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>
