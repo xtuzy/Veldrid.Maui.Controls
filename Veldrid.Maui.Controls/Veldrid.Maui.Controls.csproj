@@ -22,6 +22,10 @@
     <Version>4.9.10-pre</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/xtuzy/Veldrid.Maui.Controls</RepositoryUrl>
+    <Description>Veldrid of maui</Description>
+    <Copyright>yangzhou</Copyright>
+    <PackageProjectUrl>https://github.com/xtuzy/Veldrid.Maui.Controls/edit/main/README.md</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.Contains('ios')) == false and $(TargetFramework.Contains('mac')) == false">
     <Compile Remove="Platform/iOSMac/**"></Compile>
