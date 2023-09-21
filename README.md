@@ -33,3 +33,5 @@ current official veldrid packages have some bugs on maui, for temparery fix they
 - iOS - Metal (don't test)
 - Windows - D3D11
 - Android - OpenGLES
+
+** Current veldrid don't have a nice memory manager for Vulkan backend, will waste many memeory, i don't advice you try it.
