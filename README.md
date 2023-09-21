@@ -1,5 +1,7 @@
 # Veldrid.Maui.Controls
-  It is extracted from https://github.com/xtuzy/Veldrid.Samples
+[![NuGet version(Yang.MAUICollectionView)](https://img.shields.io/nuget/v/Veldrid.Maui.Controls?label=Veldrid.Maui.Controls)](https://www.nuget.org/packages/Veldrid.Maui.Controls)
+
+It is extracted from https://github.com/xtuzy/Veldrid.Samples
 ## Install Veldrid Packages
 current official veldrid packages have some bugs on maui, for temparery fix they, i push some packages to nuget.org, you can install they to your app project to override offical dll.
 - Base on [official/veldrid](https://github.com/veldrid/veldrid)
