@@ -97,7 +97,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yang.Veldrid.Maui.Android" Version="4.9.0-g63b6300f7d" />
+    <PackageReference Include="Yang.Veldrid.Maui.iOS" Version="4.9.10-ga1b22d70a3" />
     <PackageReference Include="Yang.Veldrid.Maui.OpenGLBindings" Version="4.9.10-ga1b22d70a3" />
     <PackageReference Include="Yang.Veldrid.Maui.MetalBindings" Version="4.9.10-ga1b22d70a3" />
   </ItemGroup>
