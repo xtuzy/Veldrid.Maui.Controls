@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
@@ -58,9 +58,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0-preview.7.23364.3" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6-preview.1.2" />
 	</ItemGroup>
 
@@ -100,7 +97,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yang.Veldrid.Maui.iOS" Version="4.9.10-ga1b22d70a3" />
+    <PackageReference Include="Yang.Veldrid.Maui.Android" Version="4.9.0-g63b6300f7d" />
     <PackageReference Include="Yang.Veldrid.Maui.OpenGLBindings" Version="4.9.10-ga1b22d70a3" />
     <PackageReference Include="Yang.Veldrid.Maui.MetalBindings" Version="4.9.10-ga1b22d70a3" />
   </ItemGroup>
