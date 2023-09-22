@@ -6,14 +6,13 @@ using Veldrid.SPIRV;
 
 namespace Veldrid.Maui.Controls.Samples.Core.Headless
 {
-    public class HeadlessHelloTriangle : //BaseGpuDrawable, 
+    public class HeadlessHelloTriangle : IHeadless, 
         IDisposable
     {
-        public HeadlessHelloTriangle()
+        public HeadlessHelloTriangle(GraphicsDevice graphicsDevice)
         {
-            GraphicsDevice = HeaderlessGraphicsDevice.Init();
+            GraphicsDevice = graphicsDevice;
             ResourceFactory = GraphicsDevice.ResourceFactory;
-            CreateResources(ResourceFactory);
         }
 
         #region  Add for headless
@@ -32,8 +31,9 @@ namespace Veldrid.Maui.Controls.Samples.Core.Headless
         private Shader[] _shaders;
         private DeviceBuffer _indexBuffer;
         ushort[] triangleIndices;
-        protected unsafe void CreateResources(ResourceFactory factory)
+        public unsafe void CreateResources()
         {
+            ResourceFactory factory = ResourceFactory;
             //vertices data of a triangle
             Vector3[] vertices = new Vector3[]
             {
@@ -184,6 +184,8 @@ void main()
 
         public void Dispose()
         {
+            GraphicsDevice = null;
+
             _indexBuffer?.Dispose();
             _vertexBuffer?.Dispose();
             _pipeline?.Dispose();

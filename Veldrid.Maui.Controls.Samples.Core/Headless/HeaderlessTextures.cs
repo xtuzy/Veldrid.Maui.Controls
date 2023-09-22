@@ -8,16 +8,15 @@ using Veldrid.SPIRV;
 
 namespace Veldrid.Maui.Controls.Samples.Core.Headless
 {
-    public class HeaderlessTextures : //BaseGpuDrawable, 
+    public class HeaderlessTextures : IHeadless, 
         IDisposable
     {
-        public HeaderlessTextures()
+        public HeaderlessTextures(GraphicsDevice graphicsDevice)
         {
-            GraphicsDevice = HeaderlessGraphicsDevice.Init();
+            GraphicsDevice = graphicsDevice;
             ResourceFactory = GraphicsDevice.ResourceFactory;
-            CreateResources(ResourceFactory);
         }
-
+                    
         GraphicsDevice GraphicsDevice;
         ResourceFactory ResourceFactory;
         int Width = 500;
@@ -37,8 +36,10 @@ namespace Veldrid.Maui.Controls.Samples.Core.Headless
         private Texture _surfaceTexture;
         private TextureView _surfaceTextureView;
 
-        protected unsafe void CreateResources(ResourceFactory factory)
+        public unsafe void CreateResources()
         {
+            ResourceFactory factory = ResourceFactory;
+
             //vertices data of a quad
             Vector3[] quadVertices = new Vector3[]
             {

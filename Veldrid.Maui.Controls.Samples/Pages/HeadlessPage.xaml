@@ -9,12 +9,16 @@
             <HorizontalStackLayout>
                 <Button
                     x:Name="Texture"
-                    Clicked="Texture_Clicked"
+                    Clicked="Button_Clicked"
                     Text="Texture" />
                 <Button
                     x:Name="Triangle"
-                    Clicked="Triangle_Clicked"
+                    Clicked="Button_Clicked"
                     Text="HelloTriangle" />
+                <Label
+                    x:Name="BackendChoose"
+                    Margin="10,0,10,0"
+                    VerticalOptions="Center" />
             </HorizontalStackLayout>
         </ScrollView>
         <ScrollView

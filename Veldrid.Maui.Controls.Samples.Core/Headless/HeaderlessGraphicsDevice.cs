@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Veldrid.Maui.Controls.Samples.Core.Headless
 {
-    internal class HeaderlessGraphicsDevice
+    public class HeaderlessGraphicsDevice
     {
         #region Constructors
 
@@ -85,41 +80,39 @@ namespace Veldrid.Maui.Controls.Samples.Core.Headless
             return null;
         }
 
-        static GraphicsDevice GraphicsDevice;
         public static GraphicsDevice Init()
         {
-            if (GraphicsDevice == null)
+            GraphicsDevice GraphicsDevice = null;
+            if (OperatingSystem.IsWindows())
             {
-                if (OperatingSystem.IsWindows())
+                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Direct3D11))
                 {
-                    if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Direct3D11))
-                    {
-                        GraphicsDevice = InitFromD3D11();
-                    }
-                    else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
-                    {
-                        GraphicsDevice = InitFromVulkan();//winui3 can use it if headless
-                    }
+                    GraphicsDevice = InitFromD3D11();
                 }
-                else if (OperatingSystem.IsAndroid() || OperatingSystem.IsMacOS())
+                else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
                 {
-                    if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
-                    {
-                        GraphicsDevice = InitFromVulkan();
-                    }
-                }
-                else if (OperatingSystem.IsIOS() || OperatingSystem.IsMacCatalyst())
-                {
-                    if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Metal))
-                    {
-                        GraphicsDevice = InitFromMetal();
-                    }
-                    else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
-                    {
-                        GraphicsDevice = InitFromVulkan();
-                    }
+                    GraphicsDevice = InitFromVulkan();//winui3 can use it if headless
                 }
             }
+            else if (OperatingSystem.IsAndroid() || OperatingSystem.IsMacOS())
+            {
+                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
+                {
+                    GraphicsDevice = InitFromVulkan();
+                }
+            }
+            else if (OperatingSystem.IsIOS() || OperatingSystem.IsMacCatalyst())
+            {
+                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Metal))
+                {
+                    GraphicsDevice = InitFromMetal();
+                }
+                else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
+                {
+                    GraphicsDevice = InitFromVulkan();
+                }
+            }
+
             if (GraphicsDevice != null)
                 return GraphicsDevice;
             throw new NotSupportedException("No supported GPU device found for auto");

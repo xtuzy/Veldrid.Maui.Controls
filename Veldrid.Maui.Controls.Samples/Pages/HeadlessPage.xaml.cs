@@ -7,39 +7,38 @@ namespace Veldrid.Maui.Controls.Samples.Pages;
 public partial class HeadlessPage : ContentPage
 {
     private SKCanvasView skView;
-
+    public GraphicsDevice GraphicsDevice;
+    IHeadless headless;
     public HeadlessPage()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+        this.Loaded += HeadlessPage_Loaded;
+        this.Unloaded += HeadlessPage_Unloaded;
+    }
+
+    private void HeadlessPage_Unloaded(object sender, EventArgs e)
+    {
+        GraphicsDevice?.Dispose();
+        GraphicsDevice = null;
+        headless?.Dispose();
+    }
+
+    private void HeadlessPage_Loaded(object sender, EventArgs e)
+    {
+        
+    }
 
     private void SkView_PaintSurface(object sender, SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs e)
     {
-        if(bitmap != null)
+        if (bitmap != null)
         {
             e.Surface.Canvas.DrawBitmap(bitmap, 0, 0);
         }
     }
 
     SKBitmap bitmap;
-    private void Texture_Clicked(object sender, EventArgs e)
-    {
-        if(skView == null)
-        {
-            skView = new SKCanvasView();
-            scrollView.Content = skView;
-            skView.PaintSurface += SkView_PaintSurface;
-        }
 
-        var headless = new HeaderlessTextures();
-        bitmap = headless.SaveRgba32ToSKBitmap(headless.Draw());
-        headless.Dispose();
-        skView.WidthRequest = bitmap.Width;
-        skView.HeightRequest = bitmap.Height;
-        skView.InvalidateSurface();
-    }
-
-    private void Triangle_Clicked(object sender, EventArgs e)
+    private void Button_Clicked(object sender, EventArgs e)
     {
         if (skView == null)
         {
@@ -48,7 +47,21 @@ public partial class HeadlessPage : ContentPage
             skView.PaintSurface += SkView_PaintSurface;
         }
 
-        var headless = new HeadlessHelloTriangle();
+        if(GraphicsDevice == null)
+        {
+            GraphicsDevice = HeaderlessGraphicsDevice.Init();
+            BackendChoose.Text = GraphicsDevice.BackendType.ToString();
+        }
+
+        if (headless != null)
+        {
+            headless.Dispose();
+        }
+        if (sender == Triangle)
+            headless = new HeadlessHelloTriangle(GraphicsDevice);
+        else if (sender == Texture)
+            headless = new HeaderlessTextures(GraphicsDevice);
+        headless.CreateResources();
         bitmap = headless.SaveRgba32ToSKBitmap(headless.Draw());
         headless.Dispose();
         skView.WidthRequest = bitmap.Width;
