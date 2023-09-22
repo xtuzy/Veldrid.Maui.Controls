@@ -1,7 +1,4 @@
-﻿using CoreAnimation;
-using Foundation;
-using Intents;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Veldrid.Maui.Controls.Base;
 using Veldrid.Utilities;
 
@@ -58,6 +55,8 @@ namespace Veldrid.Maui.Controls.Platforms.iOS
                 tempDevice.WaitForIdle();
                 (_resources as DisposeCollectorResourceFactory)?.DisposeCollector.DisposeAll();
                 tempDevice.Dispose();
+                if (Animator != null)
+                    Animator.cancel();
             }
         }
 
@@ -96,8 +95,11 @@ namespace Veldrid.Maui.Controls.Platforms.iOS
             _resources = new DisposeCollectorResourceFactory(_graphicsDevice.ResourceFactory);
             InvokeGraphicsDeviceCreated();
 
-            Animator = new ValueAnimator();
-            Animator.set(RenderLoop);
+            if (Animator == null)
+            {
+                Animator = new ValueAnimator();
+                Animator.set(RenderLoop);
+            }
             if (AutoReDraw == true)
                 Animator.start();
         }

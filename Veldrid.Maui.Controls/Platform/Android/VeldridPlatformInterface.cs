@@ -46,6 +46,8 @@ namespace Veldrid.Maui.Controls.Platforms.Android
                 tempDevice.WaitForIdle();
                 //_resources.DisposeCollector.DisposeAll();
                 tempDevice.Dispose();
+                if (Animator != null)
+                    Animator.cancel();
             }
         }
 
@@ -98,8 +100,11 @@ namespace Veldrid.Maui.Controls.Platforms.Android
             //_resources = _graphicsDevice.ResourceFactory;
             InvokeGraphicsDeviceCreated();
 
-            Animator = new ValueAnimator();
-            Animator.set(RenderLoop);
+            if (Animator == null)
+            {
+                Animator = new ValueAnimator();
+                Animator.set(RenderLoop);
+            }
             if (AutoReDraw == true)
                 Animator.start();
         }

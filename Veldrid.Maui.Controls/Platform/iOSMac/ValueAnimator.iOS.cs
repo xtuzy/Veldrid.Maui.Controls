@@ -18,6 +18,7 @@ namespace Veldrid.Maui.Controls.Platforms.iOS
 
         public void start()
         {
+            cancel();
             isRunning = true;
             displayLink = CADisplayLink.Create(update);
             displayLink?.AddToRunLoop(NSRunLoop.Current, NSRunLoopMode.Default);

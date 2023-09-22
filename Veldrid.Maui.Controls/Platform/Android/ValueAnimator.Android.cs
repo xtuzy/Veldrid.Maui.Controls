@@ -16,13 +16,18 @@ namespace Veldrid.Maui.Controls.Platforms.Android
 
         public void start()
         {
+            cancel();
+            if (isStop == false)
+                throw new InvalidOperationException("can't stop old render loop.");
             isRunning = true;
             Task.Factory.StartNew(() => Loop(), TaskCreationOptions.LongRunning);
         }
 
         int frameTime = 1000 / 60;//每秒60帧
+        bool isStop = true;
         private void Loop()
         {
+            isStop = false;
             while (isRunning)
             {
                 try
@@ -37,6 +42,7 @@ namespace Veldrid.Maui.Controls.Platforms.Android
                     //throw;
                 }
             }
+            isStop = true;
         }
 
         private void update()

@@ -48,6 +48,8 @@ namespace Veldrid.Maui.Controls.Platforms.Windows
                 tempDevice.WaitForIdle();
                 (_resources as DisposeCollectorResourceFactory).DisposeCollector.DisposeAll();
                 tempDevice.Dispose();
+                if (Animator != null)
+                    Animator.cancel();
             }
         }
 
@@ -62,8 +64,11 @@ namespace Veldrid.Maui.Controls.Platforms.Windows
             _resources = new DisposeCollectorResourceFactory(_graphicsDevice.ResourceFactory);
             _swapChain = _graphicsDevice.MainSwapchain;
             InvokeGraphicsDeviceCreated();
-            Animator = new ValueAnimator();
-            Animator.set(RenderLoop);
+            if (Animator == null)
+            {
+                Animator = new ValueAnimator();
+                Animator.set(RenderLoop);
+            }
             if (AutoReDraw == true)
                 Animator.start();
         }

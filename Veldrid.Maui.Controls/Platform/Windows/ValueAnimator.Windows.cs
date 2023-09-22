@@ -17,6 +17,10 @@ namespace Veldrid.Maui.Controls.Platforms.Windows
 
         public void start()
         {
+            try
+            {
+                cancel();
+            }catch (Exception ex) { }
             isRunning = true;
             CompositionTarget.Rendering += RenderLoop;
         }
