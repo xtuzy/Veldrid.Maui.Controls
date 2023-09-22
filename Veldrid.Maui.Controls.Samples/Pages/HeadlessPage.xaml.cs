@@ -12,10 +12,20 @@ public partial class HeadlessPage : ContentPage
     public HeadlessPage()
     {
         InitializeComponent();
+        this.Disappearing += OnDisappearing;
         this.Loaded += HeadlessPage_Loaded;
         this.Unloaded += HeadlessPage_Unloaded;
     }
 
+    //when change page, android will load it, but when quit app from this page, not load it, so something will break.
+    private void OnDisappearing(object sender, EventArgs e)
+    {
+        GraphicsDevice?.Dispose();
+        GraphicsDevice = null;
+        headless?.Dispose();
+    }
+
+    //when change page, windows will load it
     private void HeadlessPage_Unloaded(object sender, EventArgs e)
     {
         GraphicsDevice?.Dispose();
