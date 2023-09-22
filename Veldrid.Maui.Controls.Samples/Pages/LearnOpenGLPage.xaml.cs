@@ -22,6 +22,8 @@ public partial class LearnOpenGLPage : ContentPage
             VeldridView = new VeldridView();
             VeldridView.Backend = App.Backend;
             VeldridView.AutoReDraw = true;
+            scrollView.RemoveAt(0);
+            scrollView.IsClippedToBounds = true;
             scrollView.Add(VeldridView);
         }
 
