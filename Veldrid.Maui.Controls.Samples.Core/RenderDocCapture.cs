@@ -9,10 +9,12 @@
             {
                 RenderDoc.Load(out RenderDoc Rd); // Load RenderDoc from the default locations.
                 rd = Rd;
+#if WINDOWS
                 var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "renderdocResult");
                 if (!Directory.Exists(folder))
                     Directory.CreateDirectory(folder);
                 rd.SetCaptureSavePath(folder); // Save captures into a particular folder.
+#endif
             }
         }
 

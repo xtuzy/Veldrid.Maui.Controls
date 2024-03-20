@@ -32,6 +32,10 @@
                     x:Name="MoreCube"
                     Clicked="Button_Clicked"
                     Text="MoreCube" />
+                <Button
+                    x:Name="RenderDocButton"
+                    Clicked="RenderDocButton_Clicked"
+                    Text="StartCapture" />
             </HorizontalStackLayout>
         </ScrollView>
         <Grid

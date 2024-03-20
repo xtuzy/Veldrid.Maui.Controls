@@ -1,3 +1,4 @@
+using Veldrid.Maui.Controls.Samples.Core;
 using Veldrid.Maui.Controls.Samples.Core.LearnOpenGL;
 
 namespace Veldrid.Maui.Controls.Samples.Pages;
@@ -13,6 +14,7 @@ public partial class LearnOpenGLPage : ContentPage
         {
             Backend.Text = App.Backend.ToString();
         };
+        RenderDocCapture.Init();
     }
 
     private void Button_Clicked(object sender, EventArgs e)
@@ -46,6 +48,20 @@ public partial class LearnOpenGLPage : ContentPage
         else if (sender == MoreCube)
         {
             VeldridView.Drawable = new CoordinateSystems_MoreCubes();
+        }
+    }
+
+    private void RenderDocButton_Clicked(object sender, EventArgs e)
+    {
+        if (RenderDocButton.Text == "StartCapture")
+        {
+            RenderDocCapture.StartCapture();
+            RenderDocButton.Text = "EndCapture";
+        }
+        else
+        {
+            RenderDocCapture.EndCapture();
+            RenderDocButton.Text = "StartCapture";
         }
     }
 }
