@@ -11,7 +11,17 @@ current official veldrid packages have some bugs on maui, for temparery fix they
     - [Yang.Veldrid.Maui.Windows](https://www.nuget.org/packages/Yang.Veldrid.Maui.Windows/) change see: [build_for_maui_windows](https://github.com/xtuzy/veldrid.maui/tree/build_for_maui_windows)
 - Base on [ppy/veldrid](https://github.com/ppy/veldrid) change see: [build_for_maui_ios](https://github.com/xtuzy/veldrid.maui/tree/build_for_maui_ios)
     - [Yang.Veldrid.Maui.iOS](https://www.nuget.org/packages/Yang.Veldrid.Maui.iOS/), (also work on android and windows)
-  
+
+In order to replace official veldrid, you need to add these to .csproj (ExcludeAssets will delete officail dll):
+```
+<ItemGroup>
+    <PackageReference Include="Veldrid.SPIRV" Version="1.0.15" ExcludeAssets="All"/>
+    <PackageReference Include="Veldrid.Maui.SPIRV" Version="1.0.16.1" />
+
+    <PackageReference Include="Veldrid" Version="4.9.0" ExcludeAssets="All"/>
+    <PackageReference Include="Yang.Veldrid.Maui.iOS" Version="4.9.10-ga1b22d70a3" />
+</ItemGroup>
+```
 ## Create view
 - Add `.UseVeldridView()` to your app.
 - create view
