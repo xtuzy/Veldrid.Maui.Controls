@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Veldrid.Maui.Controls.Base;
-using Veldrid.Utilities;
+using Veldrid.Maui.Controls.Utilities;
 
 namespace Veldrid.Maui.Controls.Platforms.iOS
 {

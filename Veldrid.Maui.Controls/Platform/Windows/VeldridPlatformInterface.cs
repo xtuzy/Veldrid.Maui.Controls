@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Veldrid;
-using Veldrid.Utilities;
+using Veldrid.Maui.Controls.Utilities;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Veldrid.Maui.Controls.Base;

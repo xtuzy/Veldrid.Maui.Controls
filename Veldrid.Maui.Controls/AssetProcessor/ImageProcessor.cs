@@ -32,11 +32,12 @@ namespace Veldrid.Maui.Controls.AssetProcessor
                 foreach (Image<Rgba32> mipmap in mipmaps)
                 {
                     long mipSize = mipmap.Width * mipmap.Height * sizeof(Rgba32);
-                    if (!mipmap.TryGetSinglePixelSpan(out Span<Rgba32> pixelSpan))
+                    //if (!mipmap.TryGetSinglePixelSpan(out Span<Rgba32> pixelSpan))
+                    if (!mipmap.DangerousTryGetSinglePixelMemory(out var pixelSpan))
                     {
                         throw new VeldridException("Unable to get image pixelspan.");
                     }
-                    fixed (void* pixelPtr = &MemoryMarshal.GetReference(pixelSpan))
+                    fixed (void* pixelPtr = &MemoryMarshal.GetReference(pixelSpan.Span))
                     {
                         Buffer.MemoryCopy(pixelPtr, allTexDataPtr + offset, mipSize, mipSize);
                     }

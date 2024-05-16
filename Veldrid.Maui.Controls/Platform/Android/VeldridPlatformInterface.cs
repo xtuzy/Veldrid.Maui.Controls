@@ -1,7 +1,7 @@
 ﻿using Android.Runtime;
 using Android.Views;
 using Veldrid.Maui.Controls.Base;
-using Veldrid.Utilities;
+using Veldrid.Maui.Controls.Utilities;
 
 namespace Veldrid.Maui.Controls.Platforms.Android
 {

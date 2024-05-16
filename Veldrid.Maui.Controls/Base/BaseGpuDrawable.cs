@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Veldrid.Maui.Controls.AssetPrimitives;
-using Veldrid.Utilities;
+using Veldrid.Maui.Controls.Utilities;
 
 namespace Veldrid.Maui.Controls.Base
 {
