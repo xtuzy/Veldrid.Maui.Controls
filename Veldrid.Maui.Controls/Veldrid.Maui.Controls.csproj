@@ -19,7 +19,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <Version>4.9.10-pre</Version>
+    <Version>4.9.11-beta1</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RepositoryUrl>https://github.com/xtuzy/Veldrid.Maui.Controls</RepositoryUrl>
@@ -40,6 +40,7 @@
     <None Include="Platform/Windows/**"></None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Silk.NET.Vulkan" Version="2.21.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.8" Condition="$(TargetFramework.Contains('windows')) == true or $(TargetFramework) == 'net7.0' or $(TargetFramework.Contains('ios')) == true or $(TargetFramework.Contains('mac')) == true" />
     <PackageReference Include="Veldrid" Version="4.9.0" />
   </ItemGroup>
