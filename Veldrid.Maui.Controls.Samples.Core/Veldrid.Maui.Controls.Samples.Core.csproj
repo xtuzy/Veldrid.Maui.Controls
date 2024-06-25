@@ -9,14 +9,28 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" Version="2.88.6-preview.1.2" />
+    <PackageReference Include="SkiaSharp" Version="2.88.6" />
     <PackageReference Include="Veldrid.RenderDoc" Version="1.0.1" />
-    <PackageReference Include="Veldrid.SPIRV" Version="1.0.15" />
-    <PackageReference Include="SharpText.Veldrid" Version="0.3.1" />
     <ProjectReference Include="..\Veldrid.Maui.Controls\Veldrid.Maui.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="LearnOpenGL\Assets\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="bin\Generated\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Generated\" />
+  </ItemGroup>
+  <Target Name="Generate" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <ShaderGeneratorExePath>$(SolutionDir)ShaderGeneratorExe\bin\Debug\net8.0\ShaderGeneratorExe.dll</ShaderGeneratorExePath>
+    </PropertyGroup>
+    <Message Text="Generate Shaders" />
+    <Exec Command="dotnet exec $(ShaderGeneratorExePath) $(ProjectDir)" />
+  </Target>
+
 </Project>

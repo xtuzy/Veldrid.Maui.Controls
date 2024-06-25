@@ -40,6 +40,7 @@ public partial class HeadlessPage : ContentPage
 
     private void SkView_PaintSurface(object sender, SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs e)
     {
+        e.Surface.Canvas.Clear(SKColors.White);
         if (bitmap != null)
         {
             e.Surface.Canvas.DrawBitmap(bitmap, 0, 0);
@@ -53,6 +54,8 @@ public partial class HeadlessPage : ContentPage
         if (skView == null)
         {
             skView = new SKCanvasView();
+            skView.HorizontalOptions = LayoutOptions.Center;
+            skView.VerticalOptions = LayoutOptions.Center;
             scrollView.Content = skView;
             skView.PaintSurface += SkView_PaintSurface;
         }
@@ -67,15 +70,18 @@ public partial class HeadlessPage : ContentPage
         {
             headless.Dispose();
         }
+        var density = DeviceDisplay.Current.MainDisplayInfo.Density;
+        var w = 500;
+        var h = 500;
         if (sender == Triangle)
-            headless = new HeadlessHelloTriangle(GraphicsDevice);
+            headless = new HeadlessHelloTriangle(GraphicsDevice, (int)(w * density), (int)(h * density));
         else if (sender == Texture)
-            headless = new HeaderlessTextures(GraphicsDevice);
+            headless = new HeaderlessTextures(GraphicsDevice, (int)(w * density), (int)(h * density));
         headless.CreateResources();
         bitmap = headless.SaveRgba32ToSKBitmap(headless.Draw());
         headless.Dispose();
-        skView.WidthRequest = bitmap.Width;
-        skView.HeightRequest = bitmap.Height;
+        skView.WidthRequest = w;
+        skView.HeightRequest = h;
         skView.InvalidateSurface();
     }
 }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veldrid.Maui.Controls.Sampl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veldrid.Maui.Controls.Samples", "Veldrid.Maui.Controls.Samples\Veldrid.Maui.Controls.Samples.csproj", "{C2572602-9CE2-4D73-BE36-671338FDF72F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaderGeneratorExe", "ShaderGeneratorExe\ShaderGeneratorExe.csproj", "{28AE0AA0-4DB1-4546-AC3B-A7B00FE46501}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{C2572602-9CE2-4D73-BE36-671338FDF72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2572602-9CE2-4D73-BE36-671338FDF72F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2572602-9CE2-4D73-BE36-671338FDF72F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{28AE0AA0-4DB1-4546-AC3B-A7B00FE46501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28AE0AA0-4DB1-4546-AC3B-A7B00FE46501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28AE0AA0-4DB1-4546-AC3B-A7B00FE46501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28AE0AA0-4DB1-4546-AC3B-A7B00FE46501}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

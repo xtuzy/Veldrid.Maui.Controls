@@ -59,12 +59,11 @@ namespace Veldrid.Maui.Controls.Samples.Core.Headless
 #if IOS || MACCATALYST
                 //GPU won't always load without these
                 Veldrid.MetalBindings.MTLDevice.MTLCreateSystemDefaultDevice();
-                Metal.MTLDevice.SystemDefault.Dispose();
+                Metal.MTLDevice.SystemDefault?.Dispose();
 
-                SwapchainSource scs = SwapchainSource.CreateUIView(new UIView().Handle);//Apparently necessary to not native crash when creating Color buffer on A10 processors(A12 won't need)
-                //SwapchainSource scs = SwapchainSource.CreateUIView(UIApplication.SharedApplication.KeyWindow.RootViewController.View.Handle);//Apparently necessary to not native crash when creating Color buffer on A10 processors(A12 won't need);
-
-                var gd = GraphicsDevice.CreateMetal(new GraphicsDeviceOptions(), new SwapchainDescription(scs, 20, 20, null, false));
+                SwapchainSource scs = SwapchainSource.CreateUIView(new UIView(new CGRect(0,0,20,20)).Handle);//Apparently necessary to not native crash when creating Color buffer on A10 processors(A12 won't need)
+                var gd = GraphicsDevice.CreateMetal(new GraphicsDeviceOptions(false, null, false, ResourceBindingModel.Improved, true, true), 
+                    new SwapchainDescription(scs, 20, 20, PixelFormat.R32_Float, false));
 
                 gd.WaitForIdle();
 
@@ -85,13 +84,13 @@ namespace Veldrid.Maui.Controls.Samples.Core.Headless
             GraphicsDevice GraphicsDevice = null;
             if (OperatingSystem.IsWindows())
             {
-                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Direct3D11))
-                {
-                    GraphicsDevice = InitFromD3D11();
-                }
-                else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
+                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
                 {
                     GraphicsDevice = InitFromVulkan();//winui3 can use it if headless
+                }
+                else if(GraphicsDevice.IsBackendSupported(GraphicsBackend.Direct3D11))
+                {
+                    GraphicsDevice = InitFromD3D11();
                 }
             }
             else if (OperatingSystem.IsAndroid() || OperatingSystem.IsMacOS())
@@ -103,13 +102,13 @@ namespace Veldrid.Maui.Controls.Samples.Core.Headless
             }
             else if (OperatingSystem.IsIOS() || OperatingSystem.IsMacCatalyst())
             {
-                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Metal))
-                {
-                    GraphicsDevice = InitFromMetal();
-                }
-                else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
+                if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Vulkan))
                 {
                     GraphicsDevice = InitFromVulkan();
+                }
+                else if (GraphicsDevice.IsBackendSupported(GraphicsBackend.Metal))
+                {
+                    GraphicsDevice = InitFromMetal();
                 }
             }
 

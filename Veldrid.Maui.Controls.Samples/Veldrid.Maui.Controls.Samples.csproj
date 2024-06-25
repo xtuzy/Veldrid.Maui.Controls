@@ -23,7 +23,7 @@
 		<ApplicationTitle>Veldrid.Maui.Controls.Samples</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.veldrid.maui.controls.samples</ApplicationId>
+		<ApplicationId>com.companyname.ademotest</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -38,7 +38,9 @@
     
     <RuntimeIdentifiers Condition="$(TargetFramework.Contains('-android'))">android-arm64;android-x64</RuntimeIdentifiers>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="$(TargetFramework.Contains('ios'))">
+	  <ProvisioningType>manual</ProvisioningType>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -97,13 +99,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Veldrid.SPIRV" Version="1.0.15" ExcludeAssets="All"/>
-    <PackageReference Include="Veldrid.Maui.SPIRV" Version="1.0.16.1" />
-    
-    <PackageReference Include="Veldrid" Version="4.9.0" ExcludeAssets="All"/>
-
-    <PackageReference Include="Yang.Veldrid.Maui.iOS" Version="4.9.10-ga1b22d70a3" />
-    <PackageReference Include="Yang.Veldrid.Maui.OpenGLBindings" Version="4.9.10-ga1b22d70a3" />
-    <PackageReference Include="Yang.Veldrid.Maui.MetalBindings" Version="4.9.10-ga1b22d70a3" />
+	<!-- Exclude Vk -->
+	<PackageReference Include="Vk" Version="1.0.25" ExcludeAssets="all"/>
+	<!-- Exclude Veldrid -->
+	<PackageReference Include="Veldrid" Version="4.9.0" ExcludeAssets="all"/>
+    <PackageReference Include="Veldrid.Maui" Version="4.9.3-beta1" />
+    <PackageReference Include="Silk.NET.MoltenVK.Native" Version="2.21.0" />
+	<!--PackageReference Include="Yang.Veldrid.VK" Version="1.0.250" /-->
+	<!--PackageReference Include="Veldrid.Maui.NativeLibraryLoader" Version="1.0.130" /-->
   </ItemGroup>
 </Project>

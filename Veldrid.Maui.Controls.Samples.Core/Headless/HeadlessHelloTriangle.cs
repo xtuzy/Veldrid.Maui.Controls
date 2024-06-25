@@ -2,15 +2,16 @@
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
-using Veldrid.SPIRV;
 
 namespace Veldrid.Maui.Controls.Samples.Core.Headless
 {
     public class HeadlessHelloTriangle : IHeadless, 
         IDisposable
     {
-        public HeadlessHelloTriangle(GraphicsDevice graphicsDevice)
+        public HeadlessHelloTriangle(GraphicsDevice graphicsDevice, int pixelW, int pixelH)
         {
+            Width = pixelW;
+            Height = pixelH;
             GraphicsDevice = graphicsDevice;
             ResourceFactory = GraphicsDevice.ResourceFactory;
         }
@@ -77,24 +78,15 @@ void main()
 {
     FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
 }";
-            var vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, Encoding.UTF8.GetBytes(vertexCode), "main");
-            var fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, Encoding.UTF8.GetBytes(fragmentCode), "main");
 
-            if (factory.BackendType == GraphicsBackend.OpenGL)
-            {
-                var vertexShader = factory.CreateShader(vertexShaderDesc);
-                var fragmentShader = factory.CreateShader(fragmentShaderDesc);
-                _shaders = new Shader[] { vertexShader, fragmentShader };
-            }
-            if (factory.BackendType == GraphicsBackend.Vulkan)
-            {
-                vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, spirvVertexCode, "main");
-                fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, spirvFragmentCode, "main");
-                _shaders = factory.CreateFromSpirv(vertexShaderDesc, fragmentShaderDesc);
-            }
-            else
-                _shaders = factory.CreateFromSpirv(vertexShaderDesc, fragmentShaderDesc);// we use glsl, when not use opengl we need convert it to other 
+            (byte[] vertexBytes, byte[] fragmentBytes) = ShadersGenerator.Constants.GetBytes(factory.BackendType, nameof(LearnOpenGL.HelloTriangle));
+            string entryPoint = factory.BackendType == GraphicsBackend.Metal ? "main0" : "main";
+            var vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, vertexBytes, entryPoint);
+            var fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, fragmentBytes, entryPoint);
 
+            var vertexShader = factory.CreateShader(vertexShaderDesc);
+            var fragmentShader = factory.CreateShader(fragmentShaderDesc);
+            _shaders = new Shader[] { vertexShader, fragmentShader };
 
             // VertexLayout tell Veldrid we store what in Vertex Buffer, it need match with vertex.glsl
             VertexLayoutDescription vertexLayout = new VertexLayoutDescription(

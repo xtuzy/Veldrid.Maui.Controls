@@ -4,15 +4,16 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Veldrid.Maui.Controls.AssetPrimitives;
 using Veldrid.Maui.Controls.Base;
-using Veldrid.SPIRV;
 
 namespace Veldrid.Maui.Controls.Samples.Core.Headless
 {
     public class HeaderlessTextures : IHeadless, 
         IDisposable
     {
-        public HeaderlessTextures(GraphicsDevice graphicsDevice)
+        public HeaderlessTextures(GraphicsDevice graphicsDevice, int pixelW, int pixelH)
         {
+            Width = pixelW;
+            Height = pixelH;
             GraphicsDevice = graphicsDevice;
             ResourceFactory = GraphicsDevice.ResourceFactory;
         }
@@ -93,18 +94,15 @@ void main()
 {
     FragColor = texture(sampler2D(SurfaceTexture, SurfaceSampler), Position);
 }";
-            var vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, Encoding.UTF8.GetBytes(vertexCode), "main");
-            var fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, Encoding.UTF8.GetBytes(fragmentCode), "main");
 
-            // OpenGL no layout(set), so we need use Spirv to convert
-            /*if (factory.BackendType == GraphicsBackend.OpenGL)
-            {
-                var vertexShader = factory.CreateShader(vertexShaderDesc);
-                var fragmentShader = factory.CreateShader(fragmentShaderDesc);
-                _shaders = new Shader[] { vertexShader, fragmentShader };
-            }
-            else*/
-            _shaders = factory.CreateFromSpirv(vertexShaderDesc, fragmentShaderDesc);
+            (byte[] vertexBytes, byte[] fragmentBytes) = ShadersGenerator.Constants.GetBytes(factory.BackendType, nameof(LearnOpenGL.Textures));
+            string entryPoint = factory.BackendType == GraphicsBackend.Metal ? "main0" : "main";
+            var vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, vertexBytes, entryPoint);
+            var fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, fragmentBytes, entryPoint);
+
+            var vertexShader = factory.CreateShader(vertexShaderDesc);
+            var fragmentShader = factory.CreateShader(fragmentShaderDesc);
+            _shaders = new Shader[] { vertexShader, fragmentShader };
 
             // VertexLayout tell Veldrid we store what in Vertex Buffer, it need match with vertex.glsl
             VertexLayoutDescription vertexLayout = new VertexLayoutDescription(

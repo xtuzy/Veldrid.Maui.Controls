@@ -2,7 +2,6 @@
 using System.Text;
 using Veldrid;
 using Veldrid.Maui.Controls.Base;
-using Veldrid.SPIRV;
 
 namespace Veldrid.Maui.Controls.Samples.Core.LearnOpenGL
 {
@@ -52,7 +51,6 @@ void main()
 {
     gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
 }";
-            var vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, Encoding.UTF8.GetBytes(vertexCode), "main");
             
             string fragmentCode = @"
 #version 450
@@ -68,18 +66,15 @@ void main()
 {
     FragColor = Color;
 }";
-            var fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, Encoding.UTF8.GetBytes(fragmentCode), "main");
-            
 
-            if (factory.BackendType == GraphicsBackend.OpenGL)
-            {
-                var vertexShader = factory.CreateShader(vertexShaderDesc);
-                var fragmentShader = factory.CreateShader(fragmentShaderDesc);
-                _shaders = new Shader[] { vertexShader, fragmentShader };
-            }
-            else
-                _shaders = factory.CreateFromSpirv(vertexShaderDesc, fragmentShaderDesc);
+            (byte[] vertexBytes, byte[] fragmentBytes) = ShadersGenerator.Constants.GetBytes(factory.BackendType, this.GetType().Name);
+            string entryPoint = factory.BackendType == GraphicsBackend.Metal ? "main0" : "main"; 
+            var vertexShaderDesc = new ShaderDescription(ShaderStages.Vertex, vertexBytes, entryPoint);
+            var fragmentShaderDesc = new ShaderDescription(ShaderStages.Fragment, fragmentBytes, entryPoint);
 
+            var vertexShader = factory.CreateShader(vertexShaderDesc);
+            var fragmentShader = factory.CreateShader(fragmentShaderDesc);
+            _shaders = new Shader[] { vertexShader, fragmentShader };
 
             // VertexLayout tell Veldrid we store what in Vertex Buffer, it need match with vertex.glsl
             VertexLayoutDescription vertexLayout = new VertexLayoutDescription(
