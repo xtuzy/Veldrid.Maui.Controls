@@ -1,5 +1,6 @@
 ﻿using CoreAnimation;
 using CoreGraphics;
+using System.Diagnostics;
 using UIKit;
 namespace Veldrid.Maui.Controls.Platforms.iOS
 {
@@ -33,6 +34,24 @@ namespace Veldrid.Maui.Controls.Platforms.iOS
                 oldFrame = result;
             }
             return result;
+        }
+
+        public override void LayoutSubviews()
+        {
+            Debug.WriteLine($"iOS:{nameof(LayoutSubviews)}");
+            var result = this.Frame.Size;
+            if (this.firstTimeLoad && result.Width > 0 && result.Height > 0)//初次有大小
+            {
+                ViewLoaded?.Invoke();
+                firstTimeLoad = false;
+                oldFrame = result;
+            }
+            else if (result != oldFrame)//大小更新
+            {
+                SizeChanged?.Invoke();
+                oldFrame = result;
+            }
+            base.LayoutSubviews();
         }
 
         public Action SizeChanged;
