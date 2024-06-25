@@ -57,7 +57,7 @@ namespace Veldrid.Maui.Controls.Platforms.Windows
         {
             if(Options == null)
                 Options = new GraphicsDeviceOptions(false, PixelFormat.R32_Float, true, ResourceBindingModel.Improved);
-            var logicalDpi = 96.0f * _view.CompositionScaleX;
+            var logicalDpi = 96.0f * 1;// _view.CompositionScaleX;
             var renderWidth = _view.RenderSize.Width;
             var renderHeight = _view.RenderSize.Height;
             _graphicsDevice = GraphicsDevice.CreateD3D11(Options.Value, this._view, renderWidth, renderHeight, logicalDpi);
@@ -121,7 +121,7 @@ namespace Veldrid.Maui.Controls.Platforms.Windows
         {
             if (_graphicsDevice != null)
             {
-                _swapChain.Resize(Width, Height);
+                _swapChain.Resize((uint)_view.RenderSize.Width, (uint)_view.RenderSize.Height);
                 InvokeResized();
             }
         }
@@ -130,7 +130,7 @@ namespace Veldrid.Maui.Controls.Platforms.Windows
         {
             if (_graphicsDevice != null)
             {
-                _swapChain.Resize(Width, Height);
+                _swapChain.Resize((uint)_view.RenderSize.Width, (uint)_view.RenderSize.Height);
                 InvokeResized();
             }
         }
